@@ -1,9 +1,3 @@
-/**
-   * Create By Dika Ardnt.
-   * Contact Me on wa.me/6288292024190
-   * Follow https://github.com/DikaArdnt
-*/
-
 require('./config')
 const { default: rootherConnect, BufferJSON, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@adiwajshing/baileys")
 const pino = require('pino')
@@ -15,6 +9,7 @@ const FileType = require('file-type')
 const path = require('path')
 const _ = require('lodash')
 const axios = require('axios')
+const express = require('express')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/myfunc')
@@ -88,6 +83,9 @@ async function startroother() {
         auth: state
     })
 
+    const app = express()
+    app.use(express.static('public'))
+    await app.listen(process.env.PORT || 3000);
 
     roother.ev.on ('creds.update', saveCreds)
 

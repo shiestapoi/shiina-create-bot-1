@@ -22,6 +22,13 @@ const primbon = new Primbon()
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/myfunc')
 const { title } = require('process')
 
+//OPENAI GPT-3
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+    apiKey: "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",
+  });
+const openai = new OpenAIApi(configuration);
+
 // read database
 let tebaklagu = db.data.game.tebaklagu = []
 let _family100 = db.data.game.family100 = []
@@ -2914,25 +2921,6 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
                         roother.send5ButImg(m.chat, anu, roother.user.name, global.thumb, btn)
                      }
             break
-            // case command:
-            //     es = args
-            //     console.log(es)
-            //     if (es === undefined){
-            //         ini_url = await fetchJson(`https://api.xmrg3p5.com/?text=${command}`)
-            //         console.log(`https://api.xmrg3p5.com/?text=${command}`)
-            //     }else{
-            //         ini_url = await fetchJson(`https://api.xmrg3p5.com/?text=${command} ${es}`)
-            //         console.log(`https://api.xmrg3p5.com/?text=${command} ${es}`)
-
-            //     }
-            //     anjg = ini_url.response
-            //     console.log(ini_url)
-            //     if (anjg === null) {   
-            //         console.log(anjg)
-            //     }else{
-            //         m.reply(`${ini_url.response}`)
-            //     }
-            // break
             case 'telesticker': case 'teles': case 'st':
                 if (args.length == 0) throw `Example: ${prefix + command} https://t.me/addstickers/LINE_Menhera_chan_ENG`
                 ini_url = args[0]
@@ -3168,6 +3156,18 @@ _[ Halo, saya bot yang dibuat oleh @shoukosagiri-poi, saya bot yang dapat memban
                 m.reply(hari + ', ' + tanggal + '-' + bulan + '-' + tahun + ' [ ' + strTime + ' ]')
             }
             break
+            // case command:
+            //     es = budy
+            //     console.log(es)
+            //     const response = await openai.createCompletion({
+            //         model: "text-davinci-003",
+            //         prompt: `${budy}`,
+            //         max_tokens: 7,
+            //         temperature: 0,
+            //       });
+            //     console.log(response.data)
+            //     m.reply(response.data.choices[0].text)
+            // break
             default:
                 if (budy.startsWith('=>')) {
                     if (!isCreator) return m.reply(mess.owner)
