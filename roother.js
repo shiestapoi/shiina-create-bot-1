@@ -3064,7 +3064,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
                 let ew = m.sender
                 let name = roother.getName(m.sender)
                 let anu = `
-────ꕥ RootherBOT ꕥ────
+────ꕥ ShiinaBOT ꕥ────
 │ Hello, @${ew.split("@")[0]}, Nice To Meet You!
 │
 │*✾ Version:* 1.2.3
