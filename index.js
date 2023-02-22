@@ -83,9 +83,9 @@ async function startroother() {
         auth: state
     })
 
-    const app = express()
-    app.use(express.static('public'))
-    await app.listen(process.env.PORT || 3000);
+    // const app = express()
+    // app.use(express.static('public'))
+    // await app.listen(process.env.PORT || 3000);
 
     roother.ev.on ('creds.update', saveCreds)
 

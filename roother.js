@@ -21,13 +21,11 @@ const { Primbon } = require('scrape-primbon')
 const primbon = new Primbon()
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/myfunc')
 const { title } = require('process')
+const { ChatMessage } = require('chatgpt')
+const { chatgpt, openai } = require('./openai');
+const conversations = {};
 
-//OPENAI GPT-3
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-    apiKey: "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",
-  });
-const openai = new OpenAIApi(configuration);
+
 
 // read database
 let tebaklagu = db.data.game.tebaklagu = []
@@ -3156,18 +3154,31 @@ _[ Halo, saya bot yang dibuat oleh @shoukosagiri-poi, saya bot yang dapat memban
                 m.reply(hari + ', ' + tanggal + '-' + bulan + '-' + tahun + ' [ ' + strTime + ' ]')
             }
             break
-            // case command:
-            //     es = budy
-            //     console.log(es)
-            //     const response = await openai.createCompletion({
-            //         model: "text-davinci-003",
-            //         prompt: `${budy}`,
-            //         max_tokens: 7,
-            //         temperature: 0,
-            //       });
-            //     console.log(response.data)
-            //     m.reply(response.data.choices[0].text)
-            // break
+            case 'gpt': {
+                if (!text) return m.reply('Masukkan teksnya!')
+                try {
+                    const lastConversation = conversations[m.chat];
+                      // Check if we have a conversation with the user
+                    let response = ChatMessage;
+                    if (lastConversation) {
+                        // Handle message with previous conversation
+                        response = await chatgpt.sendMessage(text, lastConversation);
+                    } else {
+                        // Handle message with new conversation
+                        response = await chatgpt.sendMessage(text);
+                    }
+                    conversations[m.chat] = {
+                        conversationId: response.conversationId,
+                        parentMessageId: response.id
+                    };
+                    m.reply(response.text)
+                }
+                catch (error) {
+                    console.log("An error occured", error);
+                    m.reply("An error occured, please contact the administrator. (" + error.message + ")");
+                }
+            }
+            break
             default:
                 if (budy.startsWith('=>')) {
                     if (!isCreator) return m.reply(mess.owner)
