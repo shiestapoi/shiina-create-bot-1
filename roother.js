@@ -21,11 +21,7 @@ const { Primbon } = require('scrape-primbon')
 const primbon = new Primbon()
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/myfunc')
 const { title } = require('process')
-const { ChatMessage } = require('chatgpt')
-const { chatgpt, openai } = require('./openai');
-const conversations = {};
-
-
+const tectalicOpenai = require('@tectalic/openai').default;
 
 // read database
 let tebaklagu = db.data.game.tebaklagu = []
@@ -3154,24 +3150,20 @@ _[ Halo, saya bot yang dibuat oleh @shoukosagiri-poi, saya bot yang dapat memban
                 m.reply(hari + ', ' + tanggal + '-' + bulan + '-' + tahun + ' [ ' + strTime + ' ]')
             }
             break
-            case 'gpt': {
+            case 'gpt1': {
                 if (!text) return m.reply('Masukkan teksnya!')
                 try {
-                    const lastConversation = conversations[m.chat];
-                      // Check if we have a conversation with the user
-                    let response = ChatMessage;
-                    if (lastConversation) {
-                        // Handle message with previous conversation
-                        response = await chatgpt.sendMessage(text, lastConversation);
-                    } else {
-                        // Handle message with new conversation
-                        response = await chatgpt.sendMessage(text);
-                    }
-                    conversations[m.chat] = {
-                        conversationId: response.conversationId,
-                        parentMessageId: response.id
-                    };
-                    m.reply(response.text)
+                    await tectalicOpenai(global.openai_key)
+                        .completions.create({
+                            model: 'text-davinci-003',
+                            prompt: text,
+                            max_tokens: 256,
+                            stop: ';'
+                        })
+                        .then((response) => {
+                            console.log(response.data.choices[0].text.trim());
+                            m.reply(response.data.choices[0].text.trim())
+                        });
                 }
                 catch (error) {
                     console.log("An error occured", error);
