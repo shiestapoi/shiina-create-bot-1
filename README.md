@@ -1,4 +1,6 @@
 # Roother-md
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fshiestapoi%2Fshiina-create-bot-1.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fshiestapoi%2Fshiina-create-bot-1?ref=badge_shield)
+
 Script WhatsApp Bot Multi Device
 
 ## NOTE
@@ -86,3 +88,7 @@ License: [MIT](https://en.wikipedia.org/wiki/MIT_License)
 Support Me
 * [`Paypal`](paypal.me/shoukosagiri)
 * [`Saweria`](https://saweria.co/shoukosagiri)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fshiestapoi%2Fshiina-create-bot-1.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fshiestapoi%2Fshiina-create-bot-1?ref=badge_large)
